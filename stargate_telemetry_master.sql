@@ -1,15 +1,24 @@
--- STARGATE CLUSTER: UNIFIED FINANCIAL TELEMETRY & CAPEX SENSITIVITY MATRIX
--- Compiled T-SQL Deployment for SQL Server Engine (mssql-tools18)
+-- =============================================================================
+-- STARGATE CLUSTER: MASTER ENTERPRISE TELEMETRY & RISK SUITE
+-- Target Database: SQL Server 2022+ / Azure SQL / tempdb
+-- Engine: T-SQL / mssql-tools18
+-- =============================================================================
 
 USE tempdb;
 GO
 
 SET NOCOUNT ON;
+SET XACT_ABORT ON;
 
---------------------------------------------------------------------------------
--- 1. STARGATE GLOBAL MSFT U-TURN & TELEMETRY MATRIX ($515 NASDAQ TARGET)
---------------------------------------------------------------------------------
-IF OBJECT_ID('dbo.StargateGlobalTelemetry') IS NOT NULL
+PRINT '====================================================================================================================';
+PRINT '                               INITIALIZING STARGATE TELEMETRY MASTER DEPLOYMENT                                    ';
+PRINT '====================================================================================================================';
+GO
+
+-- -----------------------------------------------------------------------------
+-- MODULE 1: MICROSOFT (MSFT) GLOBAL TELEMETRY & TARGET SENSITIVITY MATRIX
+-- -----------------------------------------------------------------------------
+IF OBJECT_ID('dbo.StargateGlobalTelemetry', 'U') IS NOT NULL
     DROP TABLE dbo.StargateGlobalTelemetry;
 
 CREATE TABLE dbo.StargateGlobalTelemetry (
@@ -24,7 +33,6 @@ CREATE TABLE dbo.StargateGlobalTelemetry (
     BaseAllocationMln NUMERIC(18,2) NOT NULL,
     IngestedAt DATETIMEOFFSET DEFAULT SYSDATETIMEOFFSET()
 );
-GO
 
 INSERT INTO dbo.StargateGlobalTelemetry 
 (RegionNode, Ticker, CurrentPrice, TargetValuation, DeltaPct, UTurnSignal, AllocationTier, BaseAllocationMln) 
@@ -35,10 +43,10 @@ VALUES
 ('ASIA_PAC_DESK', 'MSFT', 448.50, 515.00, -0.0182, 'RESOURCE REALIGNMENT / PRE-INFLECTION DRAW', 'AGGRESSIVE STRAT',200.00);
 GO
 
---------------------------------------------------------------------------------
--- 2. HARDWARE & SEMICONDUCTOR SUPPLY CHAIN CORRELATION
---------------------------------------------------------------------------------
-IF OBJECT_ID('dbo.StargateHardwareSupplyChain') IS NOT NULL
+-- -----------------------------------------------------------------------------
+-- MODULE 2: HARDWARE & SEMICONDUCTOR SUPPLY CHAIN CORRELATION MATRIX
+-- -----------------------------------------------------------------------------
+IF OBJECT_ID('dbo.StargateHardwareSupplyChain', 'U') IS NOT NULL
     DROP TABLE dbo.StargateHardwareSupplyChain;
 
 CREATE TABLE dbo.StargateHardwareSupplyChain (
@@ -54,7 +62,6 @@ CREATE TABLE dbo.StargateHardwareSupplyChain (
     BaseAllocationMln NUMERIC(18,2) NOT NULL,
     IngestedAt DATETIMEOFFSET DEFAULT SYSDATETIMEOFFSET()
 );
-GO
 
 INSERT INTO dbo.StargateHardwareSupplyChain 
 (EntityName, Category, Ticker, RegionMarket, DeltaPct, SupplyChainCorrelation, SignalVector, AllocationTier, BaseAllocationMln)
@@ -68,34 +75,137 @@ VALUES
 ('Huawei MateBook',     'ENTERPRISE_CLIENT', '0981.HK',   'HANG_SENG',  0.0115, 0.810, 'KIRIN / MATEBOOK PRO DOMESTIC REPLACEMENT','GROWTH ALLOC', 150.00);
 GO
 
---------------------------------------------------------------------------------
--- 3. MEGACAPEX & TERACAPEX 60-MONTH MACRO LEVERAGE MODEL
---------------------------------------------------------------------------------
-IF OBJECT_ID('dbo.StargateCapex60MProjections') IS NOT NULL
-    DROP TABLE dbo.StargateCapex60MProjections;
+-- -----------------------------------------------------------------------------
+-- MODULE 3: QUANTUM RISK & PORTFOLIO SENTIMENT OPERATOR
+-- -----------------------------------------------------------------------------
+IF OBJECT_ID('dbo.StargateRiskSentiment', 'U') IS NOT NULL
+    DROP TABLE dbo.StargateRiskSentiment;
 
-CREATE TABLE dbo.StargateCapex60MProjections (
+CREATE TABLE dbo.StargateRiskSentiment (
     NodeID INT IDENTITY(1,1) PRIMARY KEY CLUSTERED,
-    Region VARCHAR(30) NOT NULL,
-    HubCity VARCHAR(30) NOT NULL,
-    CapexTier VARCHAR(20) NOT NULL,
-    BaseCapexMln NUMERIC(18,2) NOT NULL,
-    RunRateSalesMln NUMERIC(18,2) NOT NULL,
-    GrowthDeltaPct NUMERIC(8,4) NOT NULL,
-    CapexMultiplier NUMERIC(4,2) NOT NULL,
-    MacroLeverageScalar NUMERIC(4,2) NOT NULL,
-    SignalVector VARCHAR(100) NOT NULL,
+    IndexTicker VARCHAR(15) NOT NULL,
+    MarketVenue VARCHAR(20) NOT NULL,
+    SpotLevel NUMERIC(18,2) NOT NULL,
+    Volatility30D NUMERIC(6,4) NOT NULL,
+    SharpeScalar NUMERIC(5,2) NOT NULL,
+    SentimentVector NUMERIC(5,4) NOT NULL,
+    VaR95_1D_Mln NUMERIC(18,2) NOT NULL,
+    AllocationCapitalMln NUMERIC(18,2) NOT NULL,
     IngestedAt DATETIMEOFFSET DEFAULT SYSDATETIMEOFFSET()
 );
+
+INSERT INTO dbo.StargateRiskSentiment
+(IndexTicker, MarketVenue, SpotLevel, Volatility30D, SharpeScalar, SentimentVector, VaR95_1D_Mln, AllocationCapitalMln)
+VALUES
+('SPX',    'CBOE / NYSE', 5450.25, 0.1420, 1.85,  0.6250, 12.45, 1200.00),
+('NDX',    'NASDAQ',      19750.80, 0.1850, 2.10,  0.8100, 24.80, 1800.00),
+('N225',   'TOKYO_TSE',   38200.50, 0.2100, 1.45, -0.1200, 18.20,  650.00),
+('BVSP',   'B3_SÃO_PAULO',128400.00,0.1980, 1.30,  0.3400,  8.90,  450.00);
 GO
 
-INSERT INTO dbo.StargateCapex60MProjections 
-(Region, HubCity, CapexTier, BaseCapexMln, RunRateSalesMln, GrowthDeltaPct, CapexMultiplier, MacroLeverageScalar, SignalVector)
-VALUES 
-('ASIA',      'Tokyo / Seoul',    'TERACAPEX', 1250.00,  850.00, 0.0225, 1.35, 1.25, 'HBM3E/FOUNDRY HYPERSCALE EXPANSION'),
-('CHINA',     'Shanghai/Beijing', 'TERACAPEX', 1500.00, 1100.00, 0.0185, 1.25, 1.15, 'DOMESTIC AI FAB & COMPUTE CLUSTER'),
-('SINGAPORE', 'Singapore',        'MEGACAPEX',  650.00,  480.00, 0.0210, 1.40, 1.30, 'APAC EDGE HUB & FINANCIAL TELEMETRY'),
-('GERMANY',   'Frankfurt',        'MEGACAPEX',  800.00,  520.00, 0.0140, 1.20, 1.10, 'AUTOMOTIVE SILICON & CLOUD INFRA'),
-('LONDON',    'London',           'MEGACAPEX',  950.00,  680.00, 0.0165, 1.30, 1.20, 'EMEA CROSS-ASSET CLEARING & QUANT'),
-('BRASIL',    'São Paulo / Rio',  'MEGACAPEX',  500.00,  340.00, 0.0250, 1.45, 1.35, 'LATAM CLOUD & SOVEREIGN TELEMETRY');
+-- -----------------------------------------------------------------------------
+-- MODULE 4: HIGH-FREQUENCY ORDER BOOK & LIQUIDITY TELEMETRY
+-- -----------------------------------------------------------------------------
+IF OBJECT_ID('dbo.StargateHFTOrderBook', 'U') IS NOT NULL
+    DROP TABLE dbo.StargateHFTOrderBook;
+
+CREATE TABLE dbo.StargateHFTOrderBook (
+    ExecutionID INT IDENTITY(1,1) PRIMARY KEY CLUSTERED,
+    AssetSymbol VARCHAR(15) NOT NULL,
+    ExchangeVenue VARCHAR(20) NOT NULL,
+    BidPrice NUMERIC(18,4) NOT NULL,
+    AskPrice NUMERIC(18,4) NOT NULL,
+    BidDepthQty INT NOT NULL,
+    AskDepthQty INT NOT NULL,
+    DarkPoolInflowMln NUMERIC(18,2) NOT NULL,
+    LatencyMicroSec INT NOT NULL,
+    IngestedAt DATETIMEOFFSET DEFAULT SYSDATETIMEOFFSET()
+);
+
+INSERT INTO dbo.StargateHFTOrderBook
+(AssetSymbol, ExchangeVenue, BidPrice, AskPrice, BidDepthQty, AskDepthQty, DarkPoolInflowMln, LatencyMicroSec)
+VALUES
+('MSFT',  'NASDAQ_FULL',  448.4900, 448.5100, 15400, 12800,  85.40,  120),
+('NVDA',  'NASDAQ_FULL',  124.1500, 124.1700, 45200, 51000, 210.80,   95),
+('AAPL',  'NASDAQ_FULL',  224.3000, 224.3200, 28900, 24100,  95.20,  110),
+('TSM',   'NYSE_DIRECT',  168.8000, 168.8500, 18500, 14200,  62.10,  180);
+GO
+
+-- =============================================================================
+-- ANALYTICAL EXECUTION SUITE
+-- =============================================================================
+
+PRINT '--------------------------------------------------------------------------------------------------------------------';
+PRINT '1. MSFT REGIONAL TARGET SENSITIVITY MATRIX';
+PRINT '--------------------------------------------------------------------------------------------------------------------';
+
+WITH Telemetry_CTE AS (
+    SELECT 
+        RegionNode, Ticker, CurrentPrice, TargetValuation,
+        CAST(((TargetValuation - CurrentPrice) / CurrentPrice * 100.0) AS NUMERIC(6,2)) AS Target_Upside_Pct,
+        CAST(DeltaPct * 100.0 AS NUMERIC(6,2)) AS Node_Delta_Pct,
+        AllocationTier, BaseAllocationMln AS Base_Alloc_Mln,
+        CAST(BaseAllocationMln / SUM(BaseAllocationMln) OVER() * 100.0 AS NUMERIC(5,2)) AS Weight_Pct,
+        CAST(BaseAllocationMln * (TargetValuation / CurrentPrice) * (1.0 + DeltaPct) AS NUMERIC(18,2)) AS Projected_Alloc_Val_Mln
+    FROM dbo.StargateGlobalTelemetry
+)
+SELECT 
+    RegionNode, Ticker, CurrentPrice, TargetValuation, Target_Upside_Pct, Node_Delta_Pct,
+    AllocationTier, Base_Alloc_Mln, Weight_Pct, Projected_Alloc_Val_Mln,
+    CAST((Projected_Alloc_Val_Mln - Base_Alloc_Mln) AS NUMERIC(18,2)) AS Expected_Alpha_Mln
+FROM Telemetry_CTE
+ORDER BY Projected_Alloc_Val_Mln DESC;
+
+PRINT '--------------------------------------------------------------------------------------------------------------------';
+PRINT '2. SEMICONDUCTOR & OEM SUPPLY CHAIN CORRELATION ANALYSIS';
+PRINT '--------------------------------------------------------------------------------------------------------------------';
+
+SELECT 
+    EntityName, Category, Ticker, RegionMarket,
+    CAST(DeltaPct * 100.0 AS NUMERIC(5,2)) AS Delta_Pct,
+    SupplyChainCorrelation AS Correlation,
+    BaseAllocationMln AS Base_Alloc_Mln,
+    CAST(BaseAllocationMln * SupplyChainCorrelation AS NUMERIC(18,2)) AS Weighted_Exposure_Mln,
+    CAST((DeltaPct * SupplyChainCorrelation * 100.0) AS NUMERIC(6,3)) AS Alpha_Momentum_Score,
+    AllocationTier
+FROM dbo.StargateHardwareSupplyChain
+ORDER BY Weighted_Exposure_Mln DESC;
+
+PRINT '--------------------------------------------------------------------------------------------------------------------';
+PRINT '3. QUANTUM SENTIMENT & VALUE AT RISK (VaR) EVALUATION';
+PRINT '--------------------------------------------------------------------------------------------------------------------';
+
+WITH RiskSentiment_CTE AS (
+    SELECT 
+        IndexTicker, MarketVenue, SpotLevel,
+        CAST(Volatility30D * 100.0 AS NUMERIC(5,2)) AS Vol_30D_Pct,
+        SharpeScalar, SentimentVector, VaR95_1D_Mln,
+        AllocationCapitalMln AS Capital_Mln,
+        CAST((SharpeScalar * (1.0 + SentimentVector) / Volatility30D) AS NUMERIC(8,2)) AS Efficiency_Density_Index,
+        CAST(AllocationCapitalMln * (1.0 + SentimentVector - (VaR95_1D_Mln / AllocationCapitalMln)) AS NUMERIC(18,2)) AS Adjusted_Capital_Value_Mln
+    FROM dbo.StargateRiskSentiment
+)
+SELECT 
+    IndexTicker, MarketVenue, SpotLevel, Vol_30D_Pct, SharpeScalar, SentimentVector, VaR95_1D_Mln,
+    Capital_Mln, Efficiency_Density_Index, Adjusted_Capital_Value_Mln,
+    CAST((Adjusted_Capital_Value_Mln - Capital_Mln) AS NUMERIC(18,2)) AS Risk_Adjusted_Alpha_Mln
+FROM RiskSentiment_CTE
+ORDER BY Efficiency_Density_Index DESC;
+
+PRINT '--------------------------------------------------------------------------------------------------------------------';
+PRINT '4. HIGH-FREQUENCY MICROSTRUCTURE & SPREAD ANALYSIS';
+PRINT '--------------------------------------------------------------------------------------------------------------------';
+
+SELECT 
+    AssetSymbol, ExchangeVenue, BidPrice, AskPrice,
+    CAST(((AskPrice - BidPrice) / ((BidPrice + AskPrice) / 2.0) * 10000.0) AS NUMERIC(6,2)) AS Spread_Bps,
+    CAST(CAST(BidDepthQty AS NUMERIC(12,2)) / CAST(AskDepthQty AS NUMERIC(12,2)) AS NUMERIC(5,2)) AS Order_Book_Imbalance,
+    DarkPoolInflowMln, LatencyMicroSec,
+    CASE 
+        WHEN CAST(BidDepthQty AS NUMERIC(12,2)) / CAST(AskDepthQty AS NUMERIC(12,2)) > 1.15 THEN 'BULLISH ACCUMULATION'
+        WHEN CAST(BidDepthQty AS NUMERIC(12,2)) / CAST(AskDepthQty AS NUMERIC(12,2)) < 0.85 THEN 'BEARISH DISTRIBUTION'
+        ELSE 'NEUTRAL BALANCED'
+    END AS Microstructure_Signal
+FROM dbo.StargateHFTOrderBook
+ORDER BY DarkPoolInflowMln DESC;
 GO
