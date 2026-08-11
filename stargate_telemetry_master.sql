@@ -7,7 +7,7 @@ GO
 SET NOCOUNT ON;
 
 --------------------------------------------------------------------------------
--- 1. STARGATE GLOBAL MSFT U-TURN & TELEMETRY MATRIX
+-- 1. STARGATE GLOBAL MSFT U-TURN & TELEMETRY MATRIX ($515 NASDAQ TARGET)
 --------------------------------------------------------------------------------
 IF OBJECT_ID('dbo.StargateGlobalTelemetry') IS NOT NULL
     DROP TABLE dbo.StargateGlobalTelemetry;
