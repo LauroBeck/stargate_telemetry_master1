@@ -1,6 +1,12 @@
 # STARGATE CLUSTER: Master Enterprise Telemetry & Risk Suite
 
-An enterprise-grade, high-performance financial telemetry, semiconductor supply chain mapping, and quantum-inspired portfolio risk engine engineered in T-SQL for **SQL Server 2022+**, **Azure SQL Database**, and **Linux Docker containers (`mssql-tools18`)**.
+[![Microsoft SQL Server 2025](https://img.shields.io/badge/Microsoft%20SQL%20Server-2025%2B-CC292B?style=for-the-badge&logo=microsoftsqlserver&logoColor=white)](https://www.microsoft.com/en-us/sql-server)
+[![Azure SQL](https://img.shields.io/badge/Azure%20SQL-Database-0089D6?style=for-the-badge&logo=microsoftazure&logoColor=white)](https://azure.microsoft.com/en-us/products/azure-sql/)
+[![Docker](https://img.shields.io/badge/Docker-24.0%2B-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![T-SQL Engine](https://img.shields.io/badge/T--SQL-mssql--tools18-0078D4?style=for-the-badge&logo=microsoft&logoColor=white)](https://learn.microsoft.com/en-us/sql/tools/sqlcmd-utility)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
+
+An enterprise-grade, high-performance financial telemetry, semiconductor supply chain mapping, and quantum-inspired portfolio risk engine engineered in T-SQL for **Microsoft SQL Server 2025+**, **Azure SQL Database**, and **Linux Docker containers (`mssql-tools18`)**.
 
 The Stargate Cluster ingests multi-asset financial feeds, semiconductor ecosystem dependencies, sentiment vectors, and order book microstructure to calculate real-time capital allocation efficiency, Value at Risk (VaR), and risk-adjusted alpha.
 
@@ -61,7 +67,7 @@ $$\text{Imbalance Ratio} = \frac{\text{BidDepthQty}}{\text{AskDepthQty}}$$
 
 ## Prerequisites & Stack Requirements
 
-* **Database Engine:** SQL Server 2022+, Azure SQL Managed Instance, or SQL Server on Docker (`mcr.microsoft.com/mssql/server:2022-latest`)
+* **Database Engine:** Microsoft SQL Server 2025+, Azure SQL Managed Instance, or SQL Server on Docker (`mcr.microsoft.com/mssql/server:2025-latest`)
 * **CLI Tools:** `mssql-tools18` (`sqlcmd`)
 * **Container Runtime:** Docker Engine 24.0+
 * **Version Control:** Git
@@ -77,7 +83,7 @@ cd stargate_telemetry_master1
 
 2. Execute via Docker Container
 
-To deploy the database schema and run the full analytical suite against a running SQL Server Docker container (azuresql-dev):
+To deploy the database schema and run the full analytical suite against a running SQL Server 2025 Docker container (azuresql-dev):
 Bash
 
 docker exec -i azuresql-dev /opt/mssql-tools18/bin/sqlcmd \
@@ -125,5 +131,5 @@ Repository Structure
 
 stargate_telemetry_master1/
 ├── stargate_telemetry_master.sql   # Consolidated Master Database Schema & Query Suite
-└── README.md                       # Architectural Documentation
+└── README.md                       # Architectural Documentation & Badges
 
